@@ -7,8 +7,8 @@ import '../dialogs/show_textfield_dialog.dart';
 import '../state/app_state.dart';
 import 'main_popup_menu_button.dart';
 
-class ReminderViews extends StatelessWidget {
-  const ReminderViews({super.key});
+class RemindersViews extends StatelessWidget {
+  const RemindersViews({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,10 @@ class RemindersListView extends StatelessWidget {
                   controlAffinity: ListTileControlAffinity.leading,
                   value: reminder.isDone,
                   onChanged: (isDone) {
-                    appState.modify(reminder, isDone: isDone ?? false);
+                    appState.modifyReminder(
+                      reminderId: reminder.id,
+                      isDone: isDone ?? false,
+                    );
                     reminder.isDone = isDone ?? false;
                   },
                   title: Row(

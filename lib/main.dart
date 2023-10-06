@@ -7,10 +7,12 @@ import 'package:provider/provider.dart';
 import 'dialogs/show_auth_error.dart';
 import 'firebase_options.dart';
 import 'loading/loading_screen.dart';
+import 'providers/auth_provider.dart';
+import 'providers/reminders_provider.dart';
 import 'state/app_state.dart';
 import 'views/login_view.dart';
 import 'views/register_view.dart';
-import 'views/reminder_views.dart';
+import 'views/reminders_views.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +21,10 @@ void main() async {
   );
   runApp(
     Provider(
-      create: (_) => AppState()..initialize(),
+      create: (_) => AppState(
+        authProvider: FirebaseAuthProvider(),
+        remindersProvider: FirestoreRemindersProvider(),
+      )..initialize(),
       child: const App(),
     ),
   );
@@ -65,7 +70,7 @@ class App extends StatelessWidget {
               case AppScreen.register:
                 return const RegisterView();
               case AppScreen.reminders:
-                return const ReminderViews();
+                return const RemindersViews();
             }
           },
         ),
